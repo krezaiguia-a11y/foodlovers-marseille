@@ -1382,21 +1382,33 @@
                 display: none;
             }
 
+            .mobile-menu-toggle {
+                display: flex;
+            }
+
             nav {
-                padding: 1rem 1rem;
+                padding: 0.75rem 1rem;
             }
 
             .logo {
-                font-size: 1.1rem;
+                font-size: 0.9rem;
             }
 
             .logo-image {
                 height: 48px;
             }
 
+            .nav-actions {
+                gap: 0.5rem;
+            }
+
+            .social-icons {
+                gap: 0.5rem;
+            }
+
             .cart-btn {
-                padding: 1rem 1.5rem;
-                font-size: 0.9rem;
+                padding: 0.75rem 1.2rem;
+                font-size: 0.85rem;
             }
 
             .social-icon {
@@ -1410,7 +1422,7 @@
             }
 
             .hero {
-                margin-top: 70px;
+                margin-top: 80px;
                 min-height: 70vh;
                 padding: 2rem 1rem;
             }
@@ -1428,6 +1440,8 @@
             .btn-primary {
                 padding: 1.2rem 2rem;
                 font-size: 1.1rem;
+                width: 100%;
+                max-width: 300px;
             }
 
             .menu-grid {
@@ -1585,6 +1599,14 @@
                 align-items: center;
                 gap: 1rem;
             }
+
+            .scroll-to-top {
+                bottom: 1rem;
+                right: 1rem;
+                width: 44px;
+                height: 44px;
+                font-size: 1.2rem;
+            }
         }
 
         @media (max-width: 25rem) {
@@ -1649,6 +1671,15 @@
             </ul>
 
             <div class="nav-actions">
+                <button class="mobile-menu-toggle" 
+                        onclick="toggleMobileMenu()" 
+                        aria-label="Menü öffnen/schließen"
+                        aria-expanded="false">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+
                 <div class="social-icons" role="group" aria-label="Social Media Links">
                     <a href="https://www.instagram.com/foodlovers_marseille"
                        target="_blank"
@@ -1677,6 +1708,15 @@
                 </button>
             </div>
         </nav>
+
+        <!-- Mobile Navigation Menu -->
+        <div class="mobile-nav-menu" id="mobileNavMenu" role="navigation" aria-label="Mobile Navigation">
+            <ul>
+                <li><a href="#menu" onclick="closeMobileMenu()">Menu</a></li>
+                <li><a href="#location" onclick="closeMobileMenu()">Localisation</a></li>
+                <li><a href="#contact" onclick="closeMobileMenu()">Contact</a></li>
+            </ul>
+        </div>
     </header>
 
     <section class="hero" role="banner">
@@ -2384,6 +2424,11 @@
 
     <div id="toast" class="toast" role="alert" aria-live="polite"></div>
 
+    <!-- Scroll to Top Button -->
+    <button class="scroll-to-top" id="scrollToTop" onclick="scrollToTop()" aria-label="Nach oben scrollen">
+        ↑
+    </button>
+
     <script>
         let cart = [];
         let selectedTime = null;
@@ -2749,7 +2794,51 @@
                     element.setAttribute('tabindex', '0');
                 }
             });
+
+            // Scroll to Top Button
+            window.addEventListener('scroll', function() {
+                const scrollToTopBtn = document.getElementById('scrollToTop');
+                if (window.pageYOffset > 300) {
+                    scrollToTopBtn.classList.add('show');
+                } else {
+                    scrollToTopBtn.classList.remove('show');
+                }
+            });
         });
+
+        function toggleMobileMenu() {
+            const mobileMenu = document.getElementById('mobileNavMenu');
+            const toggleBtn = document.querySelector('.mobile-menu-toggle');
+            
+            mobileMenu.classList.toggle('show');
+            toggleBtn.classList.toggle('active');
+            
+            const isExpanded = mobileMenu.classList.contains('show');
+            toggleBtn.setAttribute('aria-expanded', isExpanded);
+            
+            if (isExpanded) {
+                document.body.style.overflow = 'hidden';
+            } else {
+                document.body.style.overflow = 'auto';
+            }
+        }
+
+        function closeMobileMenu() {
+            const mobileMenu = document.getElementById('mobileNavMenu');
+            const toggleBtn = document.querySelector('.mobile-menu-toggle');
+            
+            mobileMenu.classList.remove('show');
+            toggleBtn.classList.remove('active');
+            toggleBtn.setAttribute('aria-expanded', 'false');
+            document.body.style.overflow = 'auto';
+        }
+
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
     </script>
 </body>
 </html>
