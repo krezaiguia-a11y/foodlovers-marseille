@@ -1533,7 +1533,6 @@
             <p style="margin-top: 12px; opacity: 0.9; font-size: 14px; color: var(--text-gray);">
                 <span aria-label="Halal zertifiziert">Halal</span> •
                 <span aria-label="Alles hausgemacht">Fait maison</span> •
-                <span aria-label="Vegetarische Optionen verfügbar">Options végétariennes</span> •
                 <span aria-label="Kontaktlose Zahlung möglich">Paiement sans contact</span>
             </p>
         </div>
@@ -1552,7 +1551,7 @@
                     <button class="category-btn" aria-pressed="false">Kebabs</button>
                     <button class="category-btn" aria-pressed="false">Wraps</button>
                     <button class="category-btn" aria-pressed="false">Assiettes</button>
-                    <button class="category-btn" aria-pressed="false">Végétarien</button>
+                    <button class="category-btn" aria-pressed="false">Crêpes</button>
                     <button class="category-btn" aria-pressed="false">Boissons</button>
                 </div>
 
@@ -2386,7 +2385,7 @@
                     case 'Kebab Original': return ['Kebabs'];
                     case 'Wrap Deluxe': return ['Wraps'];
                     case 'Assiette Royale': return ['Assiettes'];
-                    case 'Crêpe Kebab': return ['Kebabs'];
+                    case 'Crêpe Kebab': return ['Crêpes', 'Kebabs'];
                     case 'Frites Maison': return ['Assiettes'];
                     case 'Kebab Box': return ['Kebabs', 'Assiettes'];
                     case 'Boissons': return ['Boissons'];
@@ -2573,6 +2572,14 @@
         }
 
         document.addEventListener('DOMContentLoaded', function() {
+            // Stelle sicher, dass die Seite oben startet
+            window.scrollTo(0, 0);
+            
+            // Verhindere Browser-Auto-Scroll
+            if ('scrollRestoration' in history) {
+                history.scrollRestoration = 'manual';
+            }
+            
             initializeMenuFilter();
 
             const interactiveElements = document.querySelectorAll('button, a, input, textarea, .time-slot');
